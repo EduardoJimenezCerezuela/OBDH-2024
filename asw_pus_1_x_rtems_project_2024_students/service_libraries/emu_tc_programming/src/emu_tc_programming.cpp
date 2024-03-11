@@ -16,7 +16,8 @@
 
 
 //TODO
-//#define FT_SOLO_EPD_ICU_SERV_1_REJECTED_TC_0030
+#define FT_SOLO_EPD_ICU_SERV_1_REJECTED_TC_0030
+//Habilitar código, son unas pruebas con un nombre y luego un identificador
 
 
 
