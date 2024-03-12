@@ -175,7 +175,7 @@ return VCurrentTC.IsRebootTC();
 
 
 
-void	CCEPDManager::EDROOM_CTX_Top_0::FFwdHK_FDIRTC(()
+void	CCEPDManager::EDROOM_CTX_Top_0::FFwdHK_FDIRTC()
 
 {
    //Allocate data from pool
@@ -187,7 +187,7 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FFwdHK_FDIRTC(()
 
 
 
-bool	CCEPDManager::EDROOM_CTX_Top_0::GFwdToHK_FDIR(()
+bool	CCEPDManager::EDROOM_CTX_Top_0::GFwdToHK_FDIR()
 
 {
 
@@ -338,7 +338,7 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 					edroomNextState = Reboot;
 				 } 
 				//Evaluate Branch FwdHK_FDIRTC
-				else if( GFwdToHK_FDIR(() )
+				else if( GFwdToHK_FDIR() )
 				{
 					//Send Asynchronous Message 
 					FFwdHK_FDIRTC();

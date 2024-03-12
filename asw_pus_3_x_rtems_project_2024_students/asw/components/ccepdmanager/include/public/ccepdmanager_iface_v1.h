@@ -354,12 +354,12 @@ public:
 		/**
 		 * \brief 
 		 */
-		void	FFwdHK_FDIRTC(();
+		void	FFwdHK_FDIRTC();
 
 		/**
 		 * \brief 
 		 */
-		bool	GFwdToHK_FDIR(();
+		bool	GFwdToHK_FDIR();
 
 	};
 
