@@ -84,6 +84,18 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FExecPrioTC()
 
 
 
+void	CCEPDManager::EDROOM_CTX_Top_0::FFwdHK_FDIRTC()
+
+{
+   //Allocate data from pool
+  CDTCHandler * pSHK_FDIR_TC_Data = EDROOMPoolCDTCHandler.AllocData();
+*pSHK_FDIR_TC_Data=VCurrentTC;
+   //Send message 
+   HK_FDIRCtrl.send(SHK_FDIR_TC,pSHK_FDIR_TC_Data,&EDROOMPoolCDTCHandler); 
+}
+
+
+
 void	CCEPDManager::EDROOM_CTX_Top_0::FGetTC()
 
 {
@@ -165,33 +177,21 @@ return VCurrentTC.IsAccepted();
 
 
 
-bool	CCEPDManager::EDROOM_CTX_Top_0::GToReboot()
-
-{
-
-return VCurrentTC.IsRebootTC();
-
-}
-
-
-
-void	CCEPDManager::EDROOM_CTX_Top_0::FFwdHK_FDIRTC()
-
-{
-   //Allocate data from pool
-  CDTCHandler * pSHK_FDIR_TC_Data = EDROOMPoolCDTCHandler.AllocData();
-*pSHK_FDIR_TC_Data=VCurrentTC;
-   //Send message 
-   HK_FDIRCtrl.send(SHK_FDIR_TC,pSHK_FDIR_TC_Data,&EDROOMPoolCDTCHandler); 
-}
-
-
-
 bool	CCEPDManager::EDROOM_CTX_Top_0::GFwdToHK_FDIR()
 
 {
 
 return VCurrentTC.IsHK_FDIRTC();
+
+}
+
+
+
+bool	CCEPDManager::EDROOM_CTX_Top_0::GToReboot()
+
+{
+
+return VCurrentTC.IsRebootTC();
 
 }
 

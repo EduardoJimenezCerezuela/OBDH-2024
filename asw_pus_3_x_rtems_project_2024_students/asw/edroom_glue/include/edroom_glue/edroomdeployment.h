@@ -85,6 +85,11 @@ class CEDROOMSystemCommSAP{
  
 //Signal Conversion
  
+	static TEDROOMSignal C2EPDManager_PHK_FDIRCtrl__C4HK_FDIRMng_PHK_FDIRCtrl(TEDROOMSignal signal);
+	static TEDROOMSignal C4HK_FDIRMng_PHK_FDIRCtrl__C2EPDManager_PHK_FDIRCtrl(TEDROOMSignal signal);
+ 
+//Signal Conversion
+ 
 	static TEDROOMSignal C4HK_FDIRMng_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl2(TEDROOMSignal signal);
 	static TEDROOMSignal C3TM_ChannelCtrl_PTMChannelCtrl2__C4HK_FDIRMng_PTMChannelCtrl(TEDROOMSignal signal);
  
@@ -92,11 +97,6 @@ class CEDROOMSystemCommSAP{
  
 	static TEDROOMSignal C2EPDManager_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl(TEDROOMSignal signal);
 	static TEDROOMSignal C3TM_ChannelCtrl_PTMChannelCtrl__C2EPDManager_PTMChannelCtrl(TEDROOMSignal signal);
- 
-//Signal Conversion
- 
-	static TEDROOMSignal C2EPDManager_PHK_FDIRCtrl__C4HK_FDIRMng_PHK_FDIRCtrl(TEDROOMSignal signal);
-	static TEDROOMSignal C4HK_FDIRMng_PHK_FDIRCtrl__C2EPDManager_PHK_FDIRCtrl(TEDROOMSignal signal);
  
  
 //!Register Interfaces

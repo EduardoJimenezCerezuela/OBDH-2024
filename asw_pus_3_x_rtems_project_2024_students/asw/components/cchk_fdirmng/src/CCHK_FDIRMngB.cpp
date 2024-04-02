@@ -83,6 +83,18 @@ PUSService3::DoHK(VCurrentTMList);
 
 
 
+void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FExecHK_FDIR_TC()
+
+{
+   //Handle Msg->data
+  CDTCHandler & varSHK_FDIR_TC = *(CDTCHandler *)Msg->data;
+CDEventList TCExecEventList;
+PUS_HK_FDIR_TCExecutor::ExecTC(varSHK_FDIR_TC,VCurrentTMList,TCExecEventList);
+
+}
+
+
+
 void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FInitHK_FDIR()
 
 {
@@ -111,18 +123,6 @@ void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FInvokeTxTMList()
  VCurrentTMList.Clear();
    //Invoke synchronous communication 
    MsgBack=TMChannelCtrl.invoke(STxTM,pSTxTM_Data,&EDROOMPoolCDTMList); 
-}
-
-
-
-void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FExecHK_FDIR_TC()
-
-{
-   //Handle Msg->data
-  CDTCHandler & varSHK_FDIR_TC = *(CDTCHandler *)Msg->data;
-CDEventList TCExecEventList;
-PUS_HK_FDIR_TCExecutor::ExecTC(varSHK_FDIR_TC,VCurrentTMList,TCExecEventList);
-
 }
 
 

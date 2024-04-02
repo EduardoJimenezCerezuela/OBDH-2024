@@ -276,17 +276,17 @@ public:
 		/**
 		 * \brief  
 		 */
+		void	FExecHK_FDIR_TC();
+
+		/**
+		 * \brief  
+		 */
 		void	FInitHK_FDIR();
 
 		/**
 		 * \brief  
 		 */
 		void	FInvokeTxTMList();
-
-		/**
-		 * \brief 
-		 */
-		void	FExecHK_FDIR_TC();
 
 	};
 

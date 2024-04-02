@@ -319,6 +319,11 @@ public:
 		/**
 		 * \brief  
 		 */
+		void	FFwdHK_FDIRTC();
+
+		/**
+		 * \brief  
+		 */
 		void	FGetTC();
 
 		/**
@@ -349,17 +354,12 @@ public:
 		/**
 		 * \brief  
 		 */
-		bool	GToReboot();
-
-		/**
-		 * \brief 
-		 */
-		void	FFwdHK_FDIRTC();
-
-		/**
-		 * \brief 
-		 */
 		bool	GFwdToHK_FDIR();
+
+		/**
+		 * \brief  
+		 */
+		bool	GToReboot();
 
 	};
 
