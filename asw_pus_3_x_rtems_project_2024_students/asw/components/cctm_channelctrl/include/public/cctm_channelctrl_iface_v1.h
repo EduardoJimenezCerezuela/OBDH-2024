@@ -78,6 +78,8 @@ public:
 	//******************  Component Communication Ports *******************
 	// ********************************************************************
 
+	//! TMChannelCtrl3 Component Port
+	CEDROOMInterface	TMChannelCtrl3;
 	//! TMChannelCtrl2 Component Port
 	CEDROOMInterface	TMChannelCtrl2;
 	//! TMChannelCtrl Component Port
@@ -166,6 +168,7 @@ public:
 		CEDROOMMessage * &MsgBack;
 
 		//!Component ports
+		CEDROOMInterface & TMChannelCtrl3;
 		CEDROOMInterface & TMChannelCtrl2;
 		CEDROOMInterface & TMChannelCtrl;
 

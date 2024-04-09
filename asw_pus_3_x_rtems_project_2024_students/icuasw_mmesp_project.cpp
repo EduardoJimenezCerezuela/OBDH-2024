@@ -12,6 +12,7 @@
 #include <public/ccepdmanager_iface_v1.h>
 #include <public/cctm_channelctrl_iface_v1.h>
 #include <public/cchk_fdirmng_iface_v1.h>
+#include <public/ccbkgtcexec_iface_v1.h>
  
 #ifdef CONFIG_EDROOMBP_DEPLOYMENT_NEED_TASK
  
@@ -36,8 +37,9 @@ rtems_task Init (uint32_t arg){
 	CCEPDManager	comp2(2, 11, EDROOMprioHigh, 1024, systemDeployment.GetComp2Memory());
 	CCTM_ChannelCtrl	comp3(3, 10, EDROOMprioVeryHigh, 1024, systemDeployment.GetComp3Memory());
 	CCHK_FDIRMng	comp4(4, 14, EDROOMprioNormal, 1024, systemDeployment.GetComp4Memory());
+	CCBKGTCExec	comp5(5, 11, EDROOMprioNormal, 1024, systemDeployment.GetComp5Memory());
  
-	systemDeployment.Config(&comp1, &comp2, &comp3, &comp4);
+	systemDeployment.Config(&comp1, &comp2, &comp3, &comp4, &comp5);
  
 	systemDeployment.Start();
  

@@ -102,7 +102,7 @@ bool ICUASW::EDROOMIsComponentFinished()
 {
 
 
-	return ( EPDManager.EDROOMIsComponentFinished() && TM_ChannelCtrl.EDROOMIsComponentFinished() && HK_FDIRMng.EDROOMIsComponentFinished() && CEDROOMComponent::EDROOMIsComponentFinished());
+	return ( EPDManager.EDROOMIsComponentFinished() && TM_ChannelCtrl.EDROOMIsComponentFinished() && HK_FDIRMng.EDROOMIsComponentFinished() && BKGTCExec.EDROOMIsComponentFinished() && CEDROOMComponent::EDROOMIsComponentFinished());
 
 }
 

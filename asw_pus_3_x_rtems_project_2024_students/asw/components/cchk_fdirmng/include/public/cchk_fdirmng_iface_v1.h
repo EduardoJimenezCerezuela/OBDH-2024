@@ -271,7 +271,7 @@ public:
 		/**
 		 * \brief  
 		 */
-		void	FDo_HK_FDIR();
+		void	FDoHK_FDIR();
 
 		/**
 		 * \brief  

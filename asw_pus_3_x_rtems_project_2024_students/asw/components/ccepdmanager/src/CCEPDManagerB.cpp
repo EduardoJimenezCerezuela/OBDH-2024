@@ -20,6 +20,7 @@ CCEPDManager::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCEPDManager &act,
 	EDROOMcomponent(act),
 	Msg(EDROOMcomponent.Msg),
 	MsgBack(EDROOMcomponent.MsgBack),
+	BKGExecCtrl(EDROOMcomponent.BKGExecCtrl),
 	HK_FDIRCtrl(EDROOMcomponent.HK_FDIRCtrl),
 	TMChannelCtrl(EDROOMcomponent.TMChannelCtrl),
 	RxTC(EDROOMcomponent.RxTC),
@@ -36,6 +37,7 @@ CCEPDManager::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 	EDROOMcomponent(context.EDROOMcomponent),
 	Msg(context.Msg),
 	MsgBack(context.MsgBack),
+	BKGExecCtrl(context.BKGExecCtrl),
 	HK_FDIRCtrl(context.HK_FDIRCtrl),
 	TMChannelCtrl(context.TMChannelCtrl),
 	RxTC(context.RxTC),
@@ -89,9 +91,27 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FFwdHK_FDIRTC()
 {
    //Allocate data from pool
   CDTCHandler * pSHK_FDIR_TC_Data = EDROOMPoolCDTCHandler.AllocData();
-*pSHK_FDIR_TC_Data=VCurrentTC;
+	
+		// Complete Data 
+	
+*pSHK_FDIR_TC_Data=VCurrentTC;   
    //Send message 
    HK_FDIRCtrl.send(SHK_FDIR_TC,pSHK_FDIR_TC_Data,&EDROOMPoolCDTCHandler); 
+}
+
+
+
+void	CCEPDManager::EDROOM_CTX_Top_0::FFwdToBKGTCExec()
+
+{
+   //Allocate data from pool
+  CDTCHandler * pSBKGTC_Data = EDROOMPoolCDTCHandler.AllocData();
+	
+		// Complete Data 
+	
+	*pSBKGTC_Data=VCurrentTC;  
+   //Send message 
+   BKGExecCtrl.send(SBKGTC,pSBKGTC_Data,&EDROOMPoolCDTCHandler); 
 }
 
 
@@ -172,6 +192,16 @@ bool	CCEPDManager::EDROOM_CTX_Top_0::GAcceptTC()
 {
 
 return VCurrentTC.IsAccepted();
+
+}
+
+
+
+bool	CCEPDManager::EDROOM_CTX_Top_0::GFwdToBKGTCExec()
+
+{
+
+ return VCurrentTC.IsBKGTC();
 
 }
 
@@ -346,6 +376,19 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 					//Branch taken is HandleTC_FwdHK_FDIRTC
 					edroomCurrentTrans.localId =
 						HandleTC_FwdHK_FDIRTC;
+
+					//Next State is Ready
+					edroomNextState = Ready;
+				 } 
+				//Evaluate Branch FwdToBKGTCExec
+				else if( GFwdToBKGTCExec() )
+				{
+					//Send Asynchronous Message 
+					FFwdToBKGTCExec();
+
+					//Branch taken is HandleTC_FwdToBKGTCExec
+					edroomCurrentTrans.localId =
+						HandleTC_FwdToBKGTCExec;
 
 					//Next State is Ready
 					edroomNextState = Ready;

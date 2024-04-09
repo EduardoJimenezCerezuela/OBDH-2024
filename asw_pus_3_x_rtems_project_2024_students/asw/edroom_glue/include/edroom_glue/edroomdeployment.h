@@ -16,6 +16,7 @@
 #include <public/ccepdmanager_iface_v1.h>
 #include <public/cctm_channelctrl_iface_v1.h>
 #include <public/cchk_fdirmng_iface_v1.h>
+#include <public/ccbkgtcexec_iface_v1.h>
 // ***********************************************************************
 // class CEDROOMSystemMemory
 // ***********************************************************************
@@ -46,12 +47,19 @@ class CEDROOMSystemMemory{
 	CEDROOMQueue::CQueueNode	comp4QueueNodes[14];
 	bool	comp4QueueNodesMarks[14];
  
+	//!Messages Memory of component comp5
+	CEDROOMMessage	comp5Messages[10];
+	bool	comp5MessagesMarks[10];
+	CEDROOMQueue::CQueueNode	comp5QueueNodes[11];
+	bool	comp5QueueNodesMarks[11];
+ 
 	public:
  
 	ICUASW::CEDROOMMemory comp1Memory;
 	CCEPDManager::CEDROOMMemory comp2Memory;
 	CCTM_ChannelCtrl::CEDROOMMemory comp3Memory;
 	CCHK_FDIRMng::CEDROOMMemory comp4Memory;
+	CCBKGTCExec::CEDROOMMemory comp5Memory;
  
 //!Set Memory
 	void SetMemory();
@@ -67,12 +75,13 @@ class CEDROOMSystemCommSAP{
  
 //!Conections
  
-	CEDROOMLocalConnection connections[3];
+	CEDROOMLocalConnection connections[5];
  
 	ICUASW   * mp_comp1;
 	CCEPDManager   * mp_comp2;
 	CCTM_ChannelCtrl   * mp_comp3;
 	CCHK_FDIRMng   * mp_comp4;
+	CCBKGTCExec   * mp_comp5;
  
  
 //!Set Components
@@ -80,8 +89,19 @@ class CEDROOMSystemCommSAP{
 	void SetComponents(ICUASW   *p_comp1,
 							CCEPDManager   *p_comp2,
 							CCTM_ChannelCtrl   *p_comp3,
-							CCHK_FDIRMng   *p_comp4);
+							CCHK_FDIRMng   *p_comp4,
+							CCBKGTCExec   *p_comp5);
  
+ 
+//Signal Conversion
+ 
+	static TEDROOMSignal C5BKGTCExec_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl3(TEDROOMSignal signal);
+	static TEDROOMSignal C3TM_ChannelCtrl_PTMChannelCtrl3__C5BKGTCExec_PTMChannelCtrl(TEDROOMSignal signal);
+ 
+//Signal Conversion
+ 
+	static TEDROOMSignal C2EPDManager_PBKGExecCtrl__C5BKGTCExec_PBKGExecCtrl(TEDROOMSignal signal);
+	static TEDROOMSignal C5BKGTCExec_PBKGExecCtrl__C2EPDManager_PBKGExecCtrl(TEDROOMSignal signal);
  
 //Signal Conversion
  
@@ -90,8 +110,8 @@ class CEDROOMSystemCommSAP{
  
 //Signal Conversion
  
-	static TEDROOMSignal C4HK_FDIRMng_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl2(TEDROOMSignal signal);
 	static TEDROOMSignal C3TM_ChannelCtrl_PTMChannelCtrl2__C4HK_FDIRMng_PTMChannelCtrl(TEDROOMSignal signal);
+	static TEDROOMSignal C4HK_FDIRMng_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl2(TEDROOMSignal signal);
  
 //Signal Conversion
  
@@ -131,6 +151,7 @@ static Pr_TaskRV_t main_task(Pr_TaskP_t);
 	CCEPDManager   * mp_comp2;
 	CCTM_ChannelCtrl   * mp_comp3;
 	CCHK_FDIRMng   * mp_comp4;
+	CCBKGTCExec   * mp_comp5;
  
 	public:
  
@@ -140,7 +161,8 @@ static Pr_TaskRV_t main_task(Pr_TaskP_t);
 	void Config(ICUASW   *p_comp1,
 					CCEPDManager   *p_comp2,
 					CCTM_ChannelCtrl   *p_comp3,
-					CCHK_FDIRMng   *p_comp4);
+					CCHK_FDIRMng   *p_comp4,
+					CCBKGTCExec   *p_comp5);
  
 //!Deployment Start
 	void Start();
@@ -153,6 +175,7 @@ static Pr_TaskRV_t main_task(Pr_TaskP_t);
 	CCEPDManager::CEDROOMMemory 		* GetComp2Memory(){return &systemMemory.comp2Memory;}
 	CCTM_ChannelCtrl::CEDROOMMemory 		* GetComp3Memory(){return &systemMemory.comp3Memory;}
 	CCHK_FDIRMng::CEDROOMMemory 		* GetComp4Memory(){return &systemMemory.comp4Memory;}
+	CCBKGTCExec::CEDROOMMemory 		* GetComp5Memory(){return &systemMemory.comp5Memory;}
  
 };
 #endif

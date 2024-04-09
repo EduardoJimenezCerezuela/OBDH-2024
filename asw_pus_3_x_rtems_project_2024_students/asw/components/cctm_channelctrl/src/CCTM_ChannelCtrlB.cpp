@@ -15,6 +15,7 @@ CCTM_ChannelCtrl::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCTM_ChannelCtrl &act ):
 	EDROOMcomponent(act),
 	Msg(EDROOMcomponent.Msg),
 	MsgBack(EDROOMcomponent.MsgBack),
+	TMChannelCtrl3(EDROOMcomponent.TMChannelCtrl3),
 	TMChannelCtrl2(EDROOMcomponent.TMChannelCtrl2),
 	TMChannelCtrl(EDROOMcomponent.TMChannelCtrl)
 {
@@ -25,6 +26,7 @@ CCTM_ChannelCtrl::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 	EDROOMcomponent(context.EDROOMcomponent),
 	Msg(context.Msg),
 	MsgBack(context.MsgBack),
+	TMChannelCtrl3(context.TMChannelCtrl3),
 	TMChannelCtrl2(context.TMChannelCtrl2),
 	TMChannelCtrl(context.TMChannelCtrl)
 {
