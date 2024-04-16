@@ -95,8 +95,8 @@ public:
 	//******************  Component Communication Ports *******************
 	// ********************************************************************
 
-	//! BKGTCExecCtrl Component Port
-	CEDROOMInterface	BKGTCExecCtrl;
+	//! BKGExecCtrl Component Port
+	CEDROOMInterface	BKGExecCtrl;
 	//! HK_FDIRCtrl Component Port
 	CEDROOMInterface	HK_FDIRCtrl;
 	//! TMChannelCtrl Component Port
@@ -233,7 +233,7 @@ public:
 		CEDROOMMessage * &MsgBack;
 
 		//!Component ports
-		CEDROOMInterface & BKGTCExecCtrl;
+		CEDROOMInterface & BKGExecCtrl;
 		CEDROOMInterface & HK_FDIRCtrl;
 		CEDROOMInterface & TMChannelCtrl;
 		CEDROOMIRQInterface & RxTC;
@@ -330,6 +330,11 @@ public:
 		/**
 		 * \brief  
 		 */
+		void	FFwdToBKGTCExec();
+
+		/**
+		 * \brief  
+		 */
 		void	FGetTC();
 
 		/**
@@ -351,11 +356,6 @@ public:
 		 * \brief  
 		 */
 		void	FMngTCRejection();
-
-		/**
-		 * \brief  
-		 */
-		void	FwdToBKGTCExec();
 
 		/**
 		 * \brief  

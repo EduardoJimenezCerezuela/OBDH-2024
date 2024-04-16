@@ -13,6 +13,13 @@
 
 #include <public/cdtchandler_iface_v1.h>
 #include <public/cdtmlist_iface_v1.h>
+#include <public/cdeventlist_iface_v1.h>
+
+
+//******************************************************************************
+// Required software interfaces
+
+#include <public/icuasw_pus_services_iface_v1.h>
 
 
 /**
@@ -30,9 +37,9 @@ public:
 	 */
 	 enum TEDROOMCCBKGTCExecSignal { EDROOMSignalTimeout, 
 							EDROOMSignalDestroy, 
+							SBKGTC, 
 							STxTM, 
-							STMQueued, 
-							SBKGTC };
+							STMQueued };
 
 	/**
 	 * \class CCBKGTCExec::CEDROOMMemory
@@ -81,10 +88,10 @@ public:
 	//******************  Component Communication Ports *******************
 	// ********************************************************************
 
+	//! BKGExecCtrl Component Port
+	CEDROOMInterface	BKGExecCtrl;
 	//! TMChannelCtrl Component Port
 	CEDROOMInterface	TMChannelCtrl;
-	//! BKGTCExecCtrl Component Port
-	CEDROOMInterface	BKGTCExecCtrl;
 
 
 
@@ -153,9 +160,9 @@ public:
 	 */
 	enum TEDROOMCCBKGTCExecSignal { EDROOMSignalTimeout,
 		EDROOMSignalDestroy,
+		SBKGTC,
 		STxTM,
-		STMQueued,
-		SBKGTC };
+		STMQueued };
 
 
 		friend class CCBKGTCExec;
@@ -170,8 +177,8 @@ public:
 		CEDROOMMessage * &MsgBack;
 
 		//!Component ports
+		CEDROOMInterface & BKGExecCtrl;
 		CEDROOMInterface & TMChannelCtrl;
-		CEDROOMInterface & BKGTCExecCtrl;
 
 
 		//! State Identifiers
@@ -186,6 +193,7 @@ public:
 
 
 		//!Variables
+		CDEventList &VCurrentEvList;
 		CDTMList &VCurrentTMList;
 
 
@@ -201,6 +209,7 @@ public:
 
 		//!Constructor
 		EDROOM_CTX_Top_0 (CCBKGTCExec &act,
+				CDEventList & EDROOMpVarVCurrentEvList,
 				CDTMList & EDROOMpVarVCurrentTMList,
 				CEDROOMPOOLCDTMList & EDROOMpPoolCDTMList );
 
@@ -240,7 +249,7 @@ public:
 		/**
 		 * \brief  
 		 */
-		void	FInvokeTxTMList();
+		void	FTxTMList();
 
 	};
 
@@ -265,6 +274,7 @@ public:
 		EDROOM_CTX_Top_0::TEDROOMStateID edroomNextState;
 
 		//!Variables
+		CDEventList VCurrentEvList;
 		CDTMList VCurrentTMList;
 
 

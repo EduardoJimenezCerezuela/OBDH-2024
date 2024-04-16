@@ -20,7 +20,7 @@ CCEPDManager::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCEPDManager &act,
 	EDROOMcomponent(act),
 	Msg(EDROOMcomponent.Msg),
 	MsgBack(EDROOMcomponent.MsgBack),
-	BKGTCExecCtrl(EDROOMcomponent.BKGTCExecCtrl),
+	BKGExecCtrl(EDROOMcomponent.BKGExecCtrl),
 	HK_FDIRCtrl(EDROOMcomponent.HK_FDIRCtrl),
 	TMChannelCtrl(EDROOMcomponent.TMChannelCtrl),
 	RxTC(EDROOMcomponent.RxTC),
@@ -37,7 +37,7 @@ CCEPDManager::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 	EDROOMcomponent(context.EDROOMcomponent),
 	Msg(context.Msg),
 	MsgBack(context.MsgBack),
-	BKGTCExecCtrl(context.BKGTCExecCtrl),
+	BKGExecCtrl(context.BKGExecCtrl),
 	HK_FDIRCtrl(context.HK_FDIRCtrl),
 	TMChannelCtrl(context.TMChannelCtrl),
 	RxTC(context.RxTC),
@@ -97,6 +97,21 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FFwdHK_FDIRTC()
 *pSHK_FDIR_TC_Data=VCurrentTC;   
    //Send message 
    HK_FDIRCtrl.send(SHK_FDIR_TC,pSHK_FDIR_TC_Data,&EDROOMPoolCDTCHandler); 
+}
+
+
+
+void	CCEPDManager::EDROOM_CTX_Top_0::FFwdToBKGTCExec()
+
+{
+   //Allocate data from pool
+  CDTCHandler * pSBKGTC_Data = EDROOMPoolCDTCHandler.AllocData();
+	
+		// Complete Data 
+	
+	*pSBKGTC_Data=VCurrentTC;  
+   //Send message 
+   BKGExecCtrl.send(SBKGTC,pSBKGTC_Data,&EDROOMPoolCDTCHandler); 
 }
 
 
@@ -172,21 +187,6 @@ PUSService1::CompleteTCRejection(VCurrentTC);
 
 
 
-void	CCEPDManager::EDROOM_CTX_Top_0::FwdToBKGTCExec()
-
-{
-   //Allocate data from pool
-  CDTCHandler * pSBKGTC_Data = EDROOMPoolCDTCHandler.AllocData();
-	
-		// Complete Data 
-	
-	*pSBKGTC_Data=VCurrentTC
-   //Send message 
-   BKGTCExecCtrl.send(SBKGTC,pSBKGTC_Data,&EDROOMPoolCDTCHandler); 
-}
-
-
-
 bool	CCEPDManager::EDROOM_CTX_Top_0::GAcceptTC()
 
 {
@@ -201,7 +201,7 @@ bool	CCEPDManager::EDROOM_CTX_Top_0::GFwdToBKGTCExec()
 
 {
 
-return VCurrentTC.IsBKGTC();
+ return VCurrentTC.IsBKGTC();
 
 }
 
@@ -384,7 +384,7 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 				else if( GFwdToBKGTCExec() )
 				{
 					//Send Asynchronous Message 
-					FwdToBKGTCExec();
+					FFwdToBKGTCExec();
 
 					//Branch taken is HandleTC_FwdToBKGTCExec
 					edroomCurrentTrans.localId =

@@ -11,14 +11,16 @@
 	// CONSTRUCTORS***********************************************
 
 CCBKGTCExec::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCBKGTCExec &act,
+	 CDEventList & EDROOMpVarVCurrentEvList,
 	 CDTMList & EDROOMpVarVCurrentTMList,
 	 CEDROOMPOOLCDTMList & EDROOMpPoolCDTMList ):
 
 	EDROOMcomponent(act),
 	Msg(EDROOMcomponent.Msg),
 	MsgBack(EDROOMcomponent.MsgBack),
+	BKGExecCtrl(EDROOMcomponent.BKGExecCtrl),
 	TMChannelCtrl(EDROOMcomponent.TMChannelCtrl),
-	BKGTCExecCtrl(EDROOMcomponent.BKGTCExecCtrl),
+	VCurrentEvList(EDROOMpVarVCurrentEvList),
 	VCurrentTMList(EDROOMpVarVCurrentTMList),
 	EDROOMPoolCDTMList(EDROOMpPoolCDTMList)
 {
@@ -29,8 +31,9 @@ CCBKGTCExec::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 	EDROOMcomponent(context.EDROOMcomponent),
 	Msg(context.Msg),
 	MsgBack(context.MsgBack),
+	BKGExecCtrl(context.BKGExecCtrl),
 	TMChannelCtrl(context.TMChannelCtrl),
-	BKGTCExecCtrl(context.BKGTCExecCtrl),
+	VCurrentEvList(context.VCurrentEvList),
 	VCurrentTMList(context.VCurrentTMList),
 	EDROOMPoolCDTMList(context.EDROOMPoolCDTMList )
 {
@@ -68,18 +71,18 @@ void	CCBKGTCExec::EDROOM_CTX_Top_0::FExecBKGTC()
 {
    //Handle Msg->data
   CDTCHandler & varSBKGTC = *(CDTCHandler *)Msg->data;
+ 
 	
 		// Data access
 	
-	// ... =varSBKGTC;
-   CDEventList TCExecEventList;  
+   CDEventList TCExecEventList;
    PUS_BKGTCExecutor::ExecTC(varSBKGTC,VCurrentTMList,TCExecEventList);
 
 }
 
 
 
-void	CCBKGTCExec::EDROOM_CTX_Top_0::FInvokeTxTMList()
+void	CCBKGTCExec::EDROOM_CTX_Top_0::FTxTMList()
 
 {
    //Allocate data from pool
@@ -87,8 +90,8 @@ void	CCBKGTCExec::EDROOM_CTX_Top_0::FInvokeTxTMList()
 	
 		// Complete Data 
 	
-	*pSTxTM_Data=VCurrentTMList;
-	VCurrentTMList.Clean();
+	*pSTxTM_Data=VCurrentTMList;    
+	VCurrentTMList.Clear();
    //Invoke synchronous communication 
    MsgBack=TMChannelCtrl.invoke(STxTM,pSTxTM_Data,&EDROOMPoolCDTMList); 
 }
@@ -126,6 +129,7 @@ CDTMList *	CCBKGTCExec::EDROOM_CTX_Top_0::CEDROOMPOOLCDTMList::AllocData()
 CCBKGTCExec::EDROOM_SUB_Top_0::EDROOM_SUB_Top_0 (CCBKGTCExec&act
 	,CEDROOMMemory *pEDROOMMemory):
 		EDROOM_CTX_Top_0(act,
+			VCurrentEvList,
 			VCurrentTMList,
 			EDROOMPoolCDTMList),
 		EDROOMPoolCDTMList(
@@ -164,7 +168,7 @@ void CCBKGTCExec::EDROOM_SUB_Top_0::EDROOMBehaviour()
 				//Msg->Data Handling 
 				FExecBKGTC();
 				//Invoke Synchronous Message 
-				FInvokeTxTMList();
+				FTxTMList();
 				//Next State is Ready
 				edroomNextState = Ready;
 				break;
@@ -254,7 +258,7 @@ TEDROOMTransId CCBKGTCExec::EDROOM_SUB_Top_0::EDROOMReadyArrival()
 
 			case (SBKGTC): 
 
-				 if (*Msg->GetPInterface() == BKGTCExecCtrl)
+				 if (*Msg->GetPInterface() == BKGExecCtrl)
 				{
 
 					//Next transition is  ExecTC
