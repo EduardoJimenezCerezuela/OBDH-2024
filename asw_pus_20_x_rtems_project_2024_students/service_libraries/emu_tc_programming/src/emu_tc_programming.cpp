@@ -93,7 +93,7 @@ EmuGSS_TCProgram3_5 prog_FT_0050_step_2(FT_SOLO_EPD_ICU_SERV_3_0050_TIME_step2,
 //TODO
 EmuGSS_TCProgram20_1 prog_FT_0060_step_0(FT_SOLO_EPD_ICU_SERV_20_0060_TIME_step0,
 		"FT_SOLO_EPD_ICU_SERV_20_0060_TIME_step0, Report Param Value ParamID",1);
-EmuGSS_TCProgram20_1 prog_FT_0060_step_1(FT_SOLO_EPD_ICU_SERV_20_0060_TIME_step1,
+EmuGSS_TCProgram20_3 prog_FT_0060_step_1(FT_SOLO_EPD_ICU_SERV_20_0060_TIME_step1,
 		"FT_SOLO_EPD_ICU_SERV_20_0060_TIME_step1, Report Param Value ParamID",1,5);
 
 #endif
