@@ -21,6 +21,12 @@
 
 #define FT_SOLO_EPD_ICU_Monitoring_0070
 
+#define FT_SOLO_EPD_ICU_Monitoring_0080
+
+
+
+
+
 #ifdef FT_SOLO_EPD_ICU_SERV_17_0010
 
 EmuGSS_TCProgram17_1 prog_FT_0010_step_0(UNITIME_AFTER_POWER_ON + 6,
@@ -123,3 +129,84 @@ EmuGSS_TCProgram20_3 prog_FT_0070_step_4(FT_0070_TIME_step4,
 
 #endif
 
+
+// Test similar al anterior, solo que ahora desactivamos los eventos y observamos que no aparece la [5,4]
+#ifdef FT_SOLO_EPD_ICU_Monitoring_0080
+
+#define FT_0080_TIME_step0 (UNITIME_AFTER_POWER_ON + 1)
+#define FT_0080_TIME_step1 (UNITIME_AFTER_POWER_ON + 2)
+#define FT_0080_TIME_step2 (UNITIME_AFTER_POWER_ON + 5)
+#define FT_0080_TIME_step3 (UNITIME_AFTER_POWER_ON + 7)
+#define FT_0080_TIME_step4 (UNITIME_AFTER_POWER_ON + 20)
+#define FT_0080_TIME_step5 (UNITIME_AFTER_POWER_ON + 40)
+#define FT_0080_TIME_step6 (UNITIME_AFTER_POWER_ON + 60)
+
+EmuGSS_TCProgram5_6 prog_FT_0080_step_0(FT_0080_TIME_step0,"FT_SOLO_EPD_ICU_SERV_5_0080 step 0, disable event reports with RID=0x4000",0x4000);
+EmuGSS_TCProgram5_6 prog_FT_0080_step_1(FT_0080_TIME_step1,"FT_SOLO_EPD_ICU_SERV_5_0080 step 1, disable event reports with RID=0x4001",0x4001);
+
+// Configuramos el monitor con ID 0
+// Se monitoriza el ranfo del parámetro y si se sobrepasa se produce una RID de tipo 4
+EmuGSS_TCProgram12_5 prog_FT_0080_step_2(FT_0080_TIME_step2,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 2, Config PMODID 0 for monitoring PID 1",
+		0, 1, 5, 1, 0x4000, 10, 0x4001);
+
+// Activamos la monitorización
+EmuGSS_TCProgram12_1 prog_FT_0080_step_3(FT_0080_TIME_step3,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 3, Enable Monitoring PMODID 0", 0);
+
+// Cambiamos el valor del parámetro a un valor fuera de rango (por encima)
+EmuGSS_TCProgram20_3 prog_FT_0080_step_4(FT_0080_TIME_step4,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 4, Update PID 1 to 99", 1, 99);
+
+// Cambiamos el valor del parámetro a un valor dentro de rango
+EmuGSS_TCProgram20_3 prog_FT_0080_step_5(FT_0080_TIME_step5,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 5, Update PID 1 to 5", 1, 5);
+
+// Cambiamos el valor del parámetro a un valor fuera de rango (por debajo)
+EmuGSS_TCProgram20_3 prog_FT_0080_step_6(FT_0080_TIME_step6,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 6, Update PID 1 to 0", 1, 0);
+
+#endif
+
+// Ahora desactivamos los eventos y observamos que no aparece la [5,4] hasta el segundo 40 donde volvemos a ver los eventos 4001
+#ifdef FT_SOLO_EPD_ICU_Monitoring_0090
+
+#define FT_0080_TIME_step0 (UNITIME_AFTER_POWER_ON + 1)
+#define FT_0080_TIME_step1 (UNITIME_AFTER_POWER_ON + 2)
+#define FT_0080_TIME_step2 (UNITIME_AFTER_POWER_ON + 5)
+#define FT_0080_TIME_step3 (UNITIME_AFTER_POWER_ON + 7)
+#define FT_0080_TIME_step4 (UNITIME_AFTER_POWER_ON + 20)
+#define FT_0080_TIME_step5 (UNITIME_AFTER_POWER_ON + 40)
+#define FT_0080_TIME_step6 (UNITIME_AFTER_POWER_ON + 60)
+#define FT_0080_TIME_step7 (UNITIME_AFTER_POWER_ON + 65)
+
+EmuGSS_TCProgram5_6 prog_FT_0080_step_0(FT_0080_TIME_step0,"FT_SOLO_EPD_ICU_SERV_5_0080 step 0, disable event reports with RID=0x4000",0x4000);
+EmuGSS_TCProgram5_6 prog_FT_0080_step_1(FT_0080_TIME_step1,"FT_SOLO_EPD_ICU_SERV_5_0080 step 1, disable event reports with RID=0x4001",0x4001);
+
+// Configuramos el monitor con ID 0
+// Se monitoriza el ranfo del parámetro y si se sobrepasa se produce una RID de tipo 4
+EmuGSS_TCProgram12_5 prog_FT_0080_step_2(FT_0080_TIME_step2,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 2, Config PMODID 0 for monitoring PID 1",
+		0, 1, 5, 1, 0x4000, 10, 0x4001);
+
+// Activamos la monitorización
+EmuGSS_TCProgram12_1 prog_FT_0080_step_3(FT_0080_TIME_step3,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 3, Enable Monitoring PMODID 0", 0);
+
+// Cambiamos el valor del parámetro a un valor fuera de rango (por encima)
+EmuGSS_TCProgram20_3 prog_FT_0080_step_4(FT_0080_TIME_step4,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 4, Update PID 1 to 99", 1, 99);
+
+// ACTIVAMOS LOS EVENTOS 4001
+EmuGSS_TCProgram5_5 prog_FT_0080_step_5(FT_0080_TIME_step5,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 5, enable event reports with RID=0x4001", 0x4001);
+
+// Cambiamos el valor del parámetro a un valor dentro de rango
+EmuGSS_TCProgram20_3 prog_FT_0080_step_6(FT_0080_TIME_step6,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 6, Update PID 1 to 5", 1, 5);
+
+// Cambiamos el valor del parámetro a un valor fuera de rango (por debajo)
+EmuGSS_TCProgram20_3 prog_FT_0080_step_7(FT_0080_TIME_step7,
+		"FT_SOLO_EPD_ICU_Monitoring_0080 step 7, Update PID 1 to 0", 1, 0);
+
+#endif
