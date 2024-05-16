@@ -156,9 +156,7 @@ bool	CCHK_FDIRMng::EDROOM_CTX_Top_0::GPendingEvAction()
 
 {
 
-bool GPendingEvAction (){
  return (!PUSService19::IsEvActionQueueEmpty());
-}
 
 }
 
@@ -168,9 +166,8 @@ void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FTriggerEvAction()
 
 {
 
-void FTriggerEvAction(){
- PUSService19::TriggerEvActionExecution();
-}
+PUSService19::TriggerEvActionExecution();
+
 
 }
 
