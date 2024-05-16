@@ -27,6 +27,7 @@ class CDTCHandler {
 	friend class PUSService5;
 	friend class PUSService9;
 	friend class PUSService12;
+	friend class PUSService19;
 	friend class PUSService17;
 	friend class PUSService20;
 
@@ -176,6 +177,7 @@ public:
 	bool_t IsHK_FDIRTC() {
 			return ExecCtrlHK_FDIRTC == mTCExecCtrl;
 	}
+
 
 
 	bool_t IsBKGTC() {
